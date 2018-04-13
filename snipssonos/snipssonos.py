@@ -65,7 +65,7 @@ class SnipsSonos:
     def volume_up(self, level):
         if self.device is None:
             return
-        level = int(level) if level is not None else 20
+        level = int(level) if level is not None else 10
         if (self.node.volume_up(self.device, level)):
             return
         current_volume = self.device.volume
@@ -77,7 +77,7 @@ class SnipsSonos:
     def volume_down(self, level):
         if self.device is None:
             return
-        level = int(level) if level is not None else 20
+        level = int(level) if level is not None else 10
         if (self.node.volume_down(self.device, level)):
             return
         self.device.volume -= GAIN * level

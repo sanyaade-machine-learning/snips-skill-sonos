@@ -11,15 +11,15 @@ intents:
   - intent: radioOn
     action: |
       {%
+      snips.dialogue.end_session(None)
       if len(snips.intent.radio_name):
         radio_name = snips.intent.radio_name[0]
         snips.skill.turn_on_radio(radio_name)
       %}
-  - intent: speakerInterrupt
-    action: pause_sonos
   - intent: volumeUp
     action: |
       {%
+      snips.dialogue.end_session(None)
       volume_higher = None
       snips.skill.set_to_previous_volume()
       if snips.intent.volume_higher:
@@ -30,6 +30,7 @@ intents:
   - intent: volumeDown
     action: |
       {%
+      snips.dialogue.end_session(None)
       volume_lower = None
       snips.skill.set_to_previous_volume()
       if len(snips.intent.volume_lower):
@@ -40,6 +41,7 @@ intents:
   - intent: playPlaylist
     action: |
       {%
+      snips.dialogue.end_session(None)
       if len(snips.intent.playlist_name):
         playlist_name = snips.intent.playlist_name[0]
         snips.skill.play_playlist(playlist_name, _shuffle=(len(snips.intent.playlist_lecture_mode) and snips.intent.playlist_lecture_mode[0] == "shuffle"))
@@ -47,6 +49,7 @@ intents:
   - intent: playArtist
     action: |
       {%
+      snips.dialogue.end_session(None)
       if len(snips.intent.artist_name):
         artist_name = snips.intent.artist_name[0]
         snips.skill.play_artist(artist_name)
@@ -54,27 +57,52 @@ intents:
   - intent: playSong
     action: |
       {%
+      snips.dialogue.end_session(None)
       if len(snips.intent.song_name):
         snips.skill.play_song(snips.intent.song_name)
       %}
   - intent: playAlbum
     action: |
       {%
+      snips.dialogue.end_session(None)
       if len(snips.intent.album_name):
         album_name = snips.intent.album_name[0]
         snips.skill.play_album(album_name, _shuffle=(len(snips.intent.album_lecture_mode) and snips.intent.album_lecture_mode[0] == "shuffle"))
       %}
-  - intent: resumeMusic
-    action: play
-  - intent: nextSong
-    action: play_next_item_in_queue
-  - intent: previousSong
-    action: play_previous_item_in_queue
-  - intent: addSong
-    action: add_song
   - intent: getInfos
     action: |
       {%
+      snips.dialogue.end_session(None)
       snips.skill.set_to_previous_volume();
       tts_service.speak("This is {} by {} on the album {}".format(*snips.skill.get_info()))
+      %}
+  - intent: speakerInterrupt
+    action: |
+      {%
+      snips.dialogue.end_session(None)
+      snips.skill.pause_sonos()
+      %}
+  - intent: resumeMusic
+    action: |
+      {% 
+      snips.dialogue.end_session(None)
+      snips.skill.play()
+      %}
+  - intent: nextSong
+    action: |
+      {%
+      snips.dialogue.end_session(None)
+      snips.skill.play_next_item_in_queue()
+      %}
+  - intent: previousSong
+    action: |
+      {%
+      snips.dialogue.end_session(None)
+      snips.skill.play_previous_item_in_queue()
+      %}
+  - intent: addSong
+    action: |
+      {%
+      snips.dialogue.end_session(None);
+      snips.skill.add_song()
       %}

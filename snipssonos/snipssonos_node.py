@@ -17,7 +17,10 @@ class SnipsSonosNode:
         r_str ='http://%s:5005/%s/%s'\
                 % (self.node_server, player_name, value)
         print(r_str)
-        r = requests.get(r_str)
+        try:
+            r = requests.get(r_str)
+        except:
+            return False
         if (r.status_code != requests.codes.ok):
             return False
         tmp = json.loads(r.text)
