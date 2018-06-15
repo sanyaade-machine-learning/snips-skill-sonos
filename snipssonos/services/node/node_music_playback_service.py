@@ -1,6 +1,6 @@
 import requests
 
-from snipssonos.services.music_playback_service import MusicPlaybackService
+from snipssonos.services.music.music_playback_service import MusicPlaybackService
 
 
 class NodeMusicPlaybackService(MusicPlaybackService):  # TODO : Refactor this in next iteration ...
