@@ -2,7 +2,7 @@ import mock
 import pytest
 import requests
 
-from snipssonos.services.node_device_transport_control import NodeDeviceTransportControlService
+from snipssonos.services.node.node_device_transport_control import NodeDeviceTransportControlService
 from snipssonos.exceptions import NoReachableDeviceException
 from snipssonos.use_cases.volume_up import VolumeUpUseCase
 from snipssonos.entities.device import Device
@@ -66,7 +66,7 @@ def test_generate_url_query_for_mute(connected_device):
     assert transport_service._generate_mute_query(room_name) == "http://localhost:5005/Antho/mute"
 
 
-@mock.patch('snipssonos.services.node_device_transport_control.requests')
+@mock.patch('snipssonos.services.node.node_device_transport_control.requests')
 def test_volume_up_method_performs_correct_api_query(mocked_requests, connected_device):
     transport_service = NodeDeviceTransportControlService()
     volume_increment = VolumeUpUseCase.DEFAULT_VOLUME_INCREMENT
@@ -78,7 +78,7 @@ def test_volume_up_method_performs_correct_api_query(mocked_requests, connected_
         transport_service._generate_volume_query(connected_device.name, connected_device.volume))
 
 
-@mock.patch('snipssonos.services.node_device_transport_control.requests')
+@mock.patch('snipssonos.services.node.node_device_transport_control.requests')
 def test_volume_up_method_failure_raises_exception(mocked_requests, connected_device):
     transport_service = NodeDeviceTransportControlService()
     volume_increment = VolumeUpUseCase.DEFAULT_VOLUME_INCREMENT
@@ -93,7 +93,7 @@ def test_volume_up_method_failure_raises_exception(mocked_requests, connected_de
         transport_service.volume_up(connected_device)
 
 
-@mock.patch('snipssonos.services.node_device_transport_control.requests')
+@mock.patch('snipssonos.services.node.node_device_transport_control.requests')
 def test_mute_method_performs_correct_api_query(mocked_requests, connected_device):
     transport_service = NodeDeviceTransportControlService()
 
@@ -103,7 +103,7 @@ def test_mute_method_performs_correct_api_query(mocked_requests, connected_devic
         transport_service._generate_mute_query(connected_device.name))
 
 
-@mock.patch('snipssonos.services.node_device_transport_control.requests')
+@mock.patch('snipssonos.services.node.node_device_transport_control.requests')
 def test_volume_up_method_failure_raises_exception(mocked_requests, connected_device):
     transport_service = NodeDeviceTransportControlService()
 

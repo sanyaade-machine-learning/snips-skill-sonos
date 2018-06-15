@@ -73,6 +73,7 @@ The request adapters turns an object into a request object usable for a use case
 
 
 def test_volume_up_adapter_from_correct_intent_message_generates_valid_request(correct_intent_message):
+
     valid_request = VolumeUpRequestAdapter.from_intent_message(correct_intent_message)
 
     assert isinstance(valid_request, ValidRequestObject)
