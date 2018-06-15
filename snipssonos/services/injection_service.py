@@ -30,10 +30,9 @@ class InjectEntitiesService:
         payload = dict()
         payload["operations"] = [
                 [
-                    "addFromVanilla", entities_payload
+                    "add", entities_payload
                 ]
             ]
-        payload["crossLanguage"] = "en"
 
         return json.dumps(payload)
 
